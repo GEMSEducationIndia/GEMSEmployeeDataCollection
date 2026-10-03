@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>GEMS Education India | Employee Information Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f8fb; --card:#ffffff; --ink:#0f1b2d; --muted:#5b6778; --line:#e3e8ef; --line2:#cfd7e3;
+  --brand:#0b3a75; --brand-2:#1557b0; --brand-soft:#eaf1fb; --ok:#127a45; --ok-soft:#e8f6ee;
+  --err:#c42b2b; --err-soft:#fdecec; --warn:#8a5a00; --warn-soft:#fff6e0; --radius:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--brand-2)}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top-in{max-width:1080px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:14px}
+.mark{width:40px;height:40px;border-radius:9px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700;letter-spacing:0;font-size:11px;flex:none}
+.org{font-weight:700;font-size:16px;line-height:1.2}
+.sub{color:var(--muted);font-size:12.5px}
+.badge{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--warn);background:var(--warn-soft);border:1px solid #f1dca6;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.progress{height:4px;background:var(--line)}
+.progress>i{display:block;height:100%;width:0;background:var(--brand-2);transition:width .3s}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 80px;display:grid;grid-template-columns:250px 1fr;gap:24px;align-items:start}
+.steps{position:sticky;top:90px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:8px}
+.step{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;padding:9px 10px;border-radius:8px;font:inherit;font-size:13.5px;color:var(--muted);cursor:pointer}
+.step:disabled{cursor:not-allowed;opacity:.6}
+.step .n{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--line2);display:grid;place-items:center;font-size:11.5px;font-weight:600;flex:none;background:#fff}
+.step.active{background:var(--brand-soft);color:var(--brand);font-weight:600}
+.step.active .n{border-color:var(--brand-2);background:var(--brand-2);color:#fff}
+.step.done .n{border-color:var(--ok);background:var(--ok);color:#fff}
+.step.done{color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.card h2{margin:0 0 4px;font-size:21px}
+.card .lead{margin:0 0 22px;color:var(--muted);font-size:14px}
+.stepno{font-size:12px;font-weight:600;color:var(--brand-2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+.f[hidden]{display:none}
+label.l{font-weight:600;font-size:13.5px}
+label.l .req{color:var(--err);margin-left:2px}
+label.l .opt{color:var(--muted);font-weight:400;font-size:12px;margin-left:4px}
+.hint{font-size:12px;color:var(--muted)}
+.err{font-size:12.5px;color:var(--err);display:none}
+.f.invalid .err{display:block}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
+  width:100%;font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line2);border-radius:8px;padding:10px 12px;outline:none;transition:border-color .15s, box-shadow .15s}
+textarea{min-height:80px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--brand-2);box-shadow:0 0 0 3px rgba(21,87,176,.15)}
+.f.invalid input,.f.invalid select,.f.invalid textarea,.f.invalid .drop{border-color:var(--err);background:#fffafa}
+input[readonly]{background:#f3f5f8;color:var(--muted)}
+.pre{display:flex}
+.pre span{border:1px solid var(--line2);border-right:0;border-radius:8px 0 0 8px;padding:10px 11px;background:#f3f5f8;color:var(--muted);font-size:14px}
+.pre input{border-radius:0 8px 8px 0}
+.radios{display:flex;flex-wrap:wrap;gap:8px}
+.radios label,.chips label{display:flex;align-items:center;gap:7px;border:1px solid var(--line2);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:14px;background:#fff;user-select:none}
+.radios input,.chips input{accent-color:var(--brand-2);margin:0}
+.radios label:has(input:checked),.chips label:has(input:checked){border-color:var(--brand-2);background:var(--brand-soft);color:var(--brand)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{padding:6px 11px;font-size:13px}
+.dur{display:flex;gap:10px}
+.drop{border:1.5px dashed var(--line2);border-radius:9px;padding:14px;display:flex;align-items:center;gap:14px;background:#fafbfd}
+.drop input{display:none}
+.drop .btn{flex:none}
+.drop .fn{font-size:13px;color:var(--muted);word-break:break-all}
+.drop img{width:56px;height:56px;border-radius:8px;object-fit:cover;border:1px solid var(--line)}
+.divider{grid-column:1/-1;border:0;border-top:1px solid var(--line);margin:4px 0}
+.gtitle{grid-column:1/-1;font-weight:700;font-size:14px;color:var(--brand);margin-top:4px}
+.note{grid-column:1/-1;background:var(--brand-soft);border:1px solid #cfe0f6;color:#20406e;border-radius:8px;padding:10px 12px;font-size:13px}
+.actions{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.btn{font:inherit;font-weight:600;font-size:14px;border-radius:8px;padding:10px 18px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--brand-2)}
+.btn.primary{background:var(--brand-2);border-color:var(--brand-2);color:#fff}
+.btn.primary:hover{background:var(--brand)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.banner{display:none;margin-bottom:18px;background:var(--err-soft);border:1px solid #f3c2c2;color:var(--err);border-radius:8px;padding:10px 12px;font-size:13.5px}
+.banner.show{display:block}
+.rv h3{display:flex;justify-content:space-between;align-items:center;font-size:15px;margin:22px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.rv h3 button{font:inherit;font-size:12.5px;font-weight:600;border:0;background:none;color:var(--brand-2);cursor:pointer}
+.rv dl{display:grid;grid-template-columns:220px 1fr;gap:6px 16px;margin:0;font-size:13.5px}
+.rv dt{color:var(--muted)}
+.rv dd{margin:0;word-break:break-word}
+.decl{margin-top:24px;display:flex;gap:10px;align-items:flex-start;background:#fafbfd;border:1px solid var(--line);border-radius:8px;padding:14px;font-size:13.5px}
+.decl input{margin-top:3px;accent-color:var(--brand-2);width:16px;height:16px;flex:none}
+.done-box{text-align:center;padding:30px 10px}
+.done-box .tick{width:64px;height:64px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;margin:0 auto 14px;font-size:30px}
+.ref{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;background:#f3f5f8;border:1px solid var(--line);padding:6px 12px;border-radius:6px;margin-top:8px}
+.overlay{position:fixed;inset:0;background:rgba(255,255,255,.8);display:none;place-items:center;z-index:50}
+.overlay.show{display:grid}
+.spin{width:40px;height:40px;border:4px solid var(--line);border-top-color:var(--brand-2);border-radius:50%;animation:s 1s linear infinite;margin:0 auto 10px}
+@keyframes s{to{transform:rotate(360deg)}}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 30px}
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr}
+  .steps{position:static;display:flex;overflow-x:auto;gap:4px;padding:6px}
+  .step{white-space:nowrap;width:auto}
+  .step .t{display:none}
+  .step.active .t{display:inline}
+}
+@media (max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .card{padding:20px 16px}
+  .rv dl{grid-template-columns:1fr;gap:0}
+  .rv dd{margin-bottom:8px}
+  .badge{display:none}
+}
+/* v3 additions */
+[hidden]{display:none!important}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:12.5px;min-width:0}
+.who{color:var(--muted);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.linkbtn{border:0;background:none;color:var(--brand-2);font:inherit;font-weight:600;cursor:pointer;padding:0;white-space:nowrap}
+.save{color:var(--muted);white-space:nowrap}
+.save.ok{color:var(--ok)} .save.err{color:var(--err);font-weight:600}
+.center{max-width:480px;margin:64px auto;padding:0 16px}
+.center .card{text-align:center}
+.center .lead{margin-bottom:22px}
+.btn.ms{padding:12px 22px;font-size:15px;width:100%}
+.loginerr{color:var(--err);font-size:13px;margin-top:12px;min-height:1em}
+.upl{flex:1;min-width:0}
+.pbar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:8px}
+.pbar i{display:block;height:100%;background:var(--brand-2);width:0;transition:width .2s}
+.pbar.busy i{width:35%;animation:slide 1.1s ease-in-out infinite}
+@keyframes slide{0%{margin-left:-35%}100%{margin-left:100%}}
+.codebox{text-align:center;font-size:22px!important;letter-spacing:6px;font-weight:600}
+.login-input{margin-bottom:12px}
+.okmark{color:var(--ok);font-weight:600}
+.banner.info{background:var(--brand-soft);border-color:#cfe0f6;color:#20406e}
+@media (max-width:600px){ .who{display:none} .hdr-right{gap:10px} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="mark">GEMS</div>
+    <div><div class="org">GEMS Education India</div><div class="sub">Employee Information Form</div></div>
+    <div class="hdr-right" id="hdrUser" hidden>
+      <span id="saveInd" class="save" aria-live="polite"></span>
+      <span class="who" id="who"></span>
+      <button type="button" class="linkbtn" id="signout">Sign out</button>
+    </div>
+  </div>
+  <div class="progress"><i id="bar"></i></div>
+</header>
+
+<main>
+  <section class="center" id="s_loading"><div class="card"><div class="spin"></div><p class="lead" style="margin:0">Loading your form…</p></div></section>
+
+  <section class="center" id="s_login" hidden><div class="card">
+    <h2>Sign in to continue</h2>
+    <div id="stepEmail">
+      <p class="lead">Enter your GEMS email address. We will email you a 6-digit code. Your progress is saved as you go, so you can close the page and continue later.</p>
+      <input type="email" id="loginEmail" class="login-input" placeholder="yourname@gemsedu.in" autocomplete="email" maxlength="100">
+      <button type="button" class="btn primary ms" id="sendCode">Email me a code</button>
+    </div>
+    <div id="stepCode" hidden>
+      <p class="lead">We sent a code to <b id="codeTo"></b>. It expires in 10 minutes. If you can't find it, check your Junk or Spam folder.</p>
+      <input type="text" id="loginCode" class="login-input codebox" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••">
+      <button type="button" class="btn primary ms" id="verifyCode">Verify and continue</button>
+      <p class="hint" style="margin-top:14px"><button type="button" class="linkbtn" id="resendCode">Send a new code</button> · <button type="button" class="linkbtn" id="changeEmail">Use a different email</button></p>
+    </div>
+    <div class="loginerr" id="loginErr" role="alert"></div>
+    <div class="loginok hint" id="loginInfo"></div>
+  </div></section>
+
+  <section class="center" id="s_error" hidden><div class="card">
+    <h2>Something went wrong</h2>
+    <p class="lead" id="errText">We could not load your form.</p>
+    <button type="button" class="btn primary" id="retryLoad">Try again</button>
+  </div></section>
+
+  <div class="wrap" id="s_form" hidden>
+    <nav class="steps" id="steps" aria-label="Form sections"></nav>
+    <section class="card">
+      <div id="banner" class="banner" role="alert"></div>
+      <form id="form" novalidate autocomplete="off"></form>
+    </section>
+  </div>
+</main>
+<footer>Information submitted is confidential and used only by GEMS Education India HR for employment records.</footer>
+
+<div class="overlay" id="overlay"><div style="max-width:340px;text-align:center"><div class="spin"></div><div id="ovText">Submitting…</div></div></div>
+
+<script>
+/* =========================================================
+   CONFIGURATION
+   SCRIPT_URL : Apps Script web app URL (ends with /exec).
+                Not needed if this file is added to the Apps Script project as "Index".
+   ========================================================= */
+const CONFIG = {
+  SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzJRUviwm6Kd6ya8m7-pSk3eYw6NBCCv1UDrOZtW085LwigfnkkeU1nf4H3q87SvB1YHA/exec',
+  EMAIL_DOMAIN: 'gemsedu.in'
+};
+const FORM_VERSION = 'hris-v4';   // must match CONFIG.FORM_VERSION in Code.gs
+const SESSION_KEY = 'gemsHrisSession';
+
+/* ---------- Reference lists ---------- */
+const STATES = ['Andaman and Nicobar Islands','Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chandigarh','Chhattisgarh','Dadra and Nagar Haveli and Daman and Diu','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu and Kashmir','Jharkhand','Karnataka','Kerala','Ladakh','Lakshadweep','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Puducherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
+const COUNTRIES = ['India','Afghanistan','Australia','Bahrain','Bangladesh','Bhutan','Brazil','Canada','China','Egypt','France','Germany','Hong Kong','Indonesia','Iran','Iraq','Ireland','Italy','Japan','Jordan','Kenya','Kuwait','Lebanon','Malaysia','Maldives','Mauritius','Myanmar','Nepal','Netherlands','New Zealand','Nigeria','Oman','Pakistan','Philippines','Qatar','Russia','Saudi Arabia','Singapore','South Africa','South Korea','Spain','Sri Lanka','Sweden','Switzerland','Tanzania','Thailand','Turkey','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Vietnam','Yemen','Zambia','Zimbabwe','Other'];
+const LANGS = ['English','Hindi','Marathi','Gujarati','Bengali','Tamil','Telugu','Kannada','Malayalam','Punjabi','Odia','Urdu','Assamese','Konkani','Sindhi','Kashmiri','Nepali','Sanskrit','Arabic','French','German','Spanish','Other'];
+const BANKS = ['State Bank of India','HDFC Bank','ICICI Bank','Axis Bank','Kotak Mahindra Bank','Bank of Baroda','Punjab National Bank','Canara Bank','Union Bank of India','Bank of India','Indian Bank','Central Bank of India','Indian Overseas Bank','UCO Bank','Bank of Maharashtra','Punjab & Sind Bank','IDBI Bank','IndusInd Bank','Yes Bank','IDFC FIRST Bank','Federal Bank','RBL Bank','South Indian Bank','Karur Vysya Bank','City Union Bank','Bandhan Bank','AU Small Finance Bank','Standard Chartered Bank','HSBC','Citibank','DBS Bank','Saraswat Co-operative Bank'];
+const BLOOD = ['A+','A-','B+','B-','AB+','AB-','O+','O-'];
+const YESNO = ['Yes','No'];
+
+/* ---------- Validators ---------- */
+const RX = {
+  name: [/^[A-Za-z][A-Za-z .'\-]{0,59}$/, 'Use letters, spaces, dot, apostrophe or hyphen only'],
+  text: [/^[\s\S]{1,200}$/, 'Maximum 200 characters'],
+  email: [/^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/, 'Enter a valid email address'],
+  mobile: [/^[6-9]\d{9}$/, 'Enter a 10 digit Indian mobile number starting with 6, 7, 8 or 9'],
+  phone: [/^\+?[0-9][0-9\s\-()]{5,18}$/, 'Enter a valid phone number (6 to 15 digits, STD code allowed)'],
+  pan: [/^[A-Z]{3}P[A-Z]\d{4}[A-Z]$/, 'Enter a valid individual PAN, e.g. ABCPE1234F'],
+  uan: [/^\d{12}$/, 'UAN must be exactly 12 digits'],
+  pf: [/^[A-Z]{2}\/?[A-Z]{3}\/?\d{7}\/?\d{3}\/?\d{7}$/, 'Format: MH/BAN/0012345/000/0012345'],
+  esi: [/^\d{10}$/, 'ESI IP number must be exactly 10 digits'],
+  empcode: [/^[A-Za-z0-9\-\/]{2,20}$/, 'Letters, numbers, - or / only (2 to 20 characters)'],
+  pincode: [/^[1-9]\d{5}$/, 'Enter a valid 6 digit PIN code'],
+  zip: [/^[A-Za-z0-9 \-]{3,10}$/, 'Enter a valid postal code'],
+  ifsc: [/^[A-Z]{4}0[A-Z0-9]{6}$/, 'Enter a valid 11 character IFSC, e.g. HDFC0001234'],
+  account: [/^\d{9,18}$/, 'Account number must be 9 to 18 digits'],
+  ident: [/^[A-Za-z0-9][A-Za-z0-9\-\/_.]{0,29}$/, 'Letters, numbers, - / _ or . only'],
+  alnumtext: [/^[A-Za-z0-9][A-Za-z0-9 &.,'()\/\-]{0,99}$/, 'Use letters, numbers and basic punctuation only']
+};
+const ID_RX = {
+  'Passport': [/^[A-Z][0-9]{7}$/, 'Passport number: 1 letter followed by 7 digits, e.g. K1234567'],
+  'Driving Licence': [/^[A-Z]{2}[0-9]{2}[0-9A-Z]{9,12}$/, 'Driving licence e.g. MH0120190012345 (no spaces)'],
+  'Voter ID': [/^[A-Z]{3}[0-9]{7}$/, 'Voter ID (EPIC): 3 letters followed by 7 digits'],
+  'Aadhaar': [/^[2-9][0-9]{11}$/, 'Aadhaar must be 12 digits'],
+  'PAN': [/^[A-Z]{3}P[A-Z]\d{4}[A-Z]$/, 'Enter a valid individual PAN']
+};
+
+/* Verhoeff checksum for Aadhaar */
+const VD=[[0,1,2,3,4,5,6,7,8,9],[1,2,3,4,0,6,7,8,9,5],[2,3,4,0,1,7,8,9,5,6],[3,4,0,1,2,8,9,5,6,7],[4,0,1,2,3,9,5,6,7,8],[5,9,8,7,6,0,4,3,2,1],[6,5,9,8,7,1,0,4,3,2],[7,6,5,9,8,2,1,0,4,3],[8,7,6,5,9,3,2,1,0,4],[9,8,7,6,5,4,3,2,1,0]];
+const VP=[[0,1,2,3,4,5,6,7,8,9],[1,5,7,6,2,8,3,0,9,4],[5,8,0,3,7,9,6,1,4,2],[8,9,1,6,0,4,3,5,2,7],[9,4,5,3,1,2,6,8,7,0],[4,2,8,6,5,7,3,9,0,1],[2,7,9,3,8,0,6,4,1,5],[7,0,4,6,9,1,3,2,5,8]];
+function verhoeff(n){let c=0;const a=n.split('').reverse().map(Number);for(let i=0;i<a.length;i++)c=VD[c][VP[i%8][a[i]]];return c===0}
+function aadhaarCheck(v){ if(!/^[2-9]\d{11}$/.test(v)) return 'Aadhaar must be 12 digits and cannot start with 0 or 1'; if(!verhoeff(v)) return 'This Aadhaar number is not valid. Please re-check'; return '' }
+
+/* ---------- Date helpers ---------- */
+const today = () => { const d=new Date(); d.setHours(0,0,0,0); return d };
+const pd = s => { if(!s) return null; const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d) };
+const addY = (d,y) => { const x=new Date(d); x.setFullYear(x.getFullYear()+y); return x };
+const addD = (d,n) => { const x=new Date(d); x.setDate(x.getDate()+n); return x };
+function ageOn(dob, on){ let a=on.getFullYear()-dob.getFullYear(); const m=on.getMonth()-dob.getMonth(); if(m<0||(m===0&&on.getDate()<dob.getDate()))a--; return a }
+function monthsBetween(a,b){ if(!a||!b||b<a) return 0; let m=(b.getFullYear()-a.getFullYear())*12+(b.getMonth()-a.getMonth()); if(b.getDate()<a.getDate()) m--; return Math.max(0,m) }
+const fmtDur = m => `${Math.floor(m/12)} years ${m%12} months`;
+const fmtDate = s => { const d=pd(s); return d? d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}) : '' };
+
+/* =========================================================
+   SCHEMA
+   Every entry with a key maps to one HRIS column, in order.
+   hr:true   = HR-owned ("To be entered by HR"). Not shown to employees; column left blank.
+   col       = exact sheet header when it differs from the on-screen label.
+   key '_x'  = form-only helper, not sent to the sheet.
+   ========================================================= */
+const SECTIONS = [
+{ id:'basic', title:'Basic details', lead:'Your personal information as per official documents.', fields:[
+  {k:'photo', l:'Photo', t:'file', accept:'image/jpeg,image/png', maxMB:2, req:true, full:true, hint:'Passport size photo, JPG or PNG, max 2 MB, plain background.'},
+  {k:'title', l:'Title', t:'select', o:['Mr','Ms','Mrs','Dr','Prof'], req:true},
+  {k:'first_name', l:'First Name', t:'text', v:'name', req:true},
+  {k:'middle_name', l:'Middle Name', t:'text', v:'name'},
+  {k:'last_name', l:'Last Name', t:'text', v:'name', req:true},
+  {k:'father_name', l:"Father's Name", t:'text', v:'name', req:true, hint:'Full name'},
+  {k:'dob', l:'Date of Birth', t:'date', req:true, check:(v)=>{const a=ageOn(pd(v),today()); if(a<18) return 'You must be at least 18 years old'; if(a>80) return 'Please check the year of birth'; return ''}},
+  {k:'age', l:'Age', t:'computed', calc:d=> d.dob? String(ageOn(pd(d.dob),today())) : '', hint:'Calculated from date of birth'},
+  {k:'birth_place', l:'Birth Place', t:'text', v:'alnumtext', req:true, hint:'City or town'},
+  {k:'country_of_birth', l:'Country of Birth', t:'select', o:COUNTRIES, def:'India', req:true},
+  {k:'gender', l:'Gender', t:'radio', o:['Male','Female','Other'], req:true},
+  {k:'marital_status', l:'Marital Status', t:'select', o:['Single','Married','Divorced','Widowed','Separated'], req:true},
+  {k:'personal_email', l:'Personal Email ID', t:'email', v:'email', req:true},
+  {k:'contact_number', l:'Contact Number', t:'mobile', v:'mobile', req:true},
+  {k:'religion', l:'Religion', t:'select', o:['Hindu','Muslim','Christian','Sikh','Buddhist','Jain','Parsi','Jewish','No religion','Other'], req:true},
+  {k:'ethnicity', l:'Ethnicity', t:'text', v:'alnumtext', req:true},
+  {k:'citizenship', l:'Citizenship', t:'select', o:COUNTRIES, def:'India', req:true, hint:'Country of citizenship'},
+  {k:'nationality', l:'Nationality', t:'select', o:COUNTRIES, def:'India', req:true},
+  {k:'mother_tongue', l:'Mother Tongue', t:'select', o:LANGS, req:true},
+  {k:'languages_known', l:'Languages Known', t:'multi', o:LANGS, req:true, full:true, hint:'Select all that apply'},
+  {k:'is_disabled', l:'Is Disabled', t:'radio', o:YESNO, req:true},
+  {k:'disability_type', l:'Type of Disability', t:'select', o:['Locomotor disability','Visual impairment','Low vision','Hearing impairment','Speech and language disability','Intellectual disability','Specific learning disability','Autism spectrum disorder','Mental illness','Multiple disabilities','Other'], req:true, show:d=>d.is_disabled==='Yes'},
+  {k:'blood_group', l:'Blood Group', t:'select', o:BLOOD, req:true},
+  {k:'major_illness', l:'Major Illness', t:'textarea', req:true, full:true, max:300, hint:'Mention any major illness or ongoing treatment. Write None if not applicable.'},
+  {k:'_g1', t:'group', l:'Statutory details'},
+  {k:'pan', l:'PAN', t:'text', v:'pan', req:true, upper:true, maxlen:10},
+  {k:'uan', l:'UAN', t:'text', v:'uan', digits:true, maxlen:12, hint:'Universal Account Number. Leave blank if this is your first job.'},
+  {k:'pf', l:'PF', t:'text', v:'pf', upper:true, maxlen:26, hint:'Previous PF member ID, if any'},
+  {k:'aadhaar', l:'Aadhaar Number', t:'text', req:true, digits:true, maxlen:12, check:aadhaarCheck, mask:true},
+  {k:'esi', l:'ESI', t:'text', v:'esi', digits:true, maxlen:10, hint:'ESI IP number, if any'}
+]},
+{ id:'work', title:'Work information', lead:'Your role at GEMS Education India and your work experience. HR will complete the remaining employment details.', fields:[
+  {k:'employee_code', l:'Employee Code', t:'text', v:'empcode', req:true, upper:true},
+  {k:'doj', l:'Date of Joining', t:'date', req:true, check:(v,d)=>{const j=pd(v); if(j>addD(today(),180)) return 'Date of joining cannot be more than 6 months ahead'; if(d.dob && j<addY(pd(d.dob),18)) return 'Date of joining must be after your 18th birthday'; return ''}},
+  {k:'official_email', l:'Official Email ID', t:'email', v:'email', req:true, check:(v,d)=> (d.personal_email && v.toLowerCase()===d.personal_email.toLowerCase())? 'Official email must be different from personal email':''},
+  {k:'grade', l:'Grade', t:'text', v:'alnumtext', hint:'As mentioned in your offer letter'},
+  {k:'designation', l:'Designation', t:'text', v:'alnumtext', req:true},
+  {k:'company_name', l:'Company Name', hr:true},
+  {k:'business_entity', l:'Business Entity', hr:true},
+  {k:'school_name', l:'School name', hr:true},
+  {k:'department', l:'Department', hr:true},
+  {k:'hiring_manager', l:'Hiring Manager', hr:true},
+  {k:'hr_poc', l:'HR POC', hr:true},
+  {k:'hr_head', l:'HR Head', hr:true},
+  {k:'business_head', l:'Business Head', hr:true},
+  {k:'employment_type', l:'Employment Type', hr:true},
+  {k:'employment_status', l:'Employment Status', hr:true},
+  {k:'probation_period', l:'Probation Period', hr:true},
+  {k:'notice_period', l:'Notice Period', hr:true},
+  {k:'confirmation_status', l:'Confirmation Status', hr:true},
+  {k:'confirmation_due', l:'Confirmation Due Date', hr:true},
+  {k:'actual_confirmation', l:'Actual Confirmation Date', hr:true},
+  {k:'relieving_date', l:'Relieving Date', hr:true},
+  {k:'worksite', l:'Worksite', hr:true},
+  {k:'oasis_id', l:'Oasis ID', col:'Oasis ID (If applicable)', t:'text', v:'ident', upper:true, maxlen:30, hint:'Leave blank if you do not have one'},
+  {k:'shift_time', l:'Shift Time', hr:true},
+  {k:'_g_exp', t:'group', l:'Experience'},
+  {k:'past_experience', l:'Past Experience', t:'duration', req:true, hint:'Total experience before joining GEMS. Select 0 and 0 if none.'},
+  {k:'current_experience', l:'Current Experience', t:'computed', calc:d=> d.doj? fmtDur(monthsBetween(pd(d.doj),today())) : '', hint:'Calculated from date of joining'},
+  {k:'total_experience', l:'Total Experience', t:'computed', calc:d=> d.doj? fmtDur((d._past_months||0)+monthsBetween(pd(d.doj),today())) : '', hint:'Past plus current'}
+]},
+{ id:'contact', title:'Contact details', lead:'Your residential address and contact number.', fields:[
+  {k:'address_type', l:'Address Type', t:'select', o:['Permanent','Current','Permanent and Current'], req:true},
+  {k:'address_line_1', l:'Address line 1', t:'text', req:true, full:true, max:150, hint:'Flat, building, street'},
+  {k:'address_line_2', l:'Address line 2', t:'text', full:true, max:150, hint:'Area, landmark'},
+  {k:'country', l:'Country', t:'select', o:COUNTRIES, def:'India', req:true},
+  {k:'state', l:'State', t:'state', countryKey:'country', req:true},
+  {k:'city', l:'City', t:'text', v:'name', req:true},
+  {k:'pincode', l:'Pincode', t:'text', req:true, maxlen:10, check:(v,d)=> d.country==='India'? (RX.pincode[0].test(v)?'':RX.pincode[1]) : (RX.zip[0].test(v)?'':RX.zip[1])},
+  {k:'address_mobile', l:'Mobile Number', t:'mobile', v:'mobile', req:true},
+  {k:'is_correspondence', l:'Is Correspondence Address', t:'radio', o:YESNO, req:true}
+]},
+{ id:'emergency', title:'Emergency contact', lead:'Someone we can reach in case of an emergency.', fields:[
+  {k:'ec_name', l:'Contact Name', t:'text', v:'name', req:true},
+  {k:'ec_relationship', l:'Contact Relationship', t:'select', o:['Spouse','Father','Mother','Brother','Sister','Son','Daughter','Friend','Relative','Other'], req:true},
+  {k:'ec_mobile', l:'Mobile Number', t:'mobile', v:'mobile', req:true, check:(v,d)=> v===d.contact_number? 'Emergency contact number must be different from your own':''},
+  {k:'ec_office', l:'Office Number', t:'tel', v:'phone', hint:'With STD code, e.g. 022 26123456'},
+  {k:'ec_address', l:'Contact Address', t:'textarea', req:true, full:true, max:300},
+  {k:'ec_email', l:'Email ID', t:'email', v:'email'}
+]},
+{ id:'dependent', title:'Dependent', lead:'Add one dependent family member for records and benefits.', fields:[
+  {k:'_has_dep', l:'Do you want to add a dependent?', t:'radio', o:YESNO, req:true, full:true},
+  {k:'dep_name', l:'Name', t:'text', v:'name', req:true, show:d=>d._has_dep==='Yes'},
+  {k:'dep_relationship', l:'Relationship', t:'select', o:['Spouse','Son','Daughter','Father','Mother','Father-in-law','Mother-in-law'], req:true, show:d=>d._has_dep==='Yes'},
+  {k:'dep_gender', l:'Gender', t:'radio', o:['Male','Female','Other'], req:true, show:d=>d._has_dep==='Yes', check:(v,d)=>{const m={Son:'Male',Father:'Male','Father-in-law':'Male',Daughter:'Female',Mother:'Female','Mother-in-law':'Female'}[d.dep_relationship]; return (m && v!==m)? `Gender does not match relationship (${d.dep_relationship})`:''}},
+  {k:'dep_dob', l:'Date of Birth', t:'date', req:true, show:d=>d._has_dep==='Yes', check:(v,d)=>{const x=pd(v); if(x>today()) return 'Date of birth cannot be in the future'; const e=pd(d.dob); if(e){ if(['Son','Daughter'].includes(d.dep_relationship) && x<=e) return 'Child\'s date of birth must be after yours'; if(['Father','Mother'].includes(d.dep_relationship) && x>=e) return 'Parent\'s date of birth must be before yours'; } return ''}},
+  {k:'dep_blood_group', l:'Blood Group', t:'select', o:BLOOD.concat(['Not known']), show:d=>d._has_dep==='Yes'},
+  {k:'dep_ecard', l:'Health Ecard', hr:true},
+  {k:'dep_mobile', l:'Mobile Number', t:'mobile', v:'mobile', show:d=>d._has_dep==='Yes'},
+  {k:'dep_occupation', l:'Occupation', t:'text', v:'alnumtext', show:d=>d._has_dep==='Yes'}
+]},
+{ id:'prev', title:'Previous employment', lead:'Your most recent employer before GEMS Education India.', fields:[
+  {k:'_has_prev', l:'Do you have previous work experience?', t:'radio', o:YESNO, req:true, full:true},
+  {k:'pe_company', l:'Company Name', t:'text', v:'alnumtext', req:true, show:d=>d._has_prev==='Yes'},
+  {k:'pe_title', l:'Title', t:'text', v:'alnumtext', req:true, show:d=>d._has_prev==='Yes', hint:'Your designation'},
+  {k:'pe_department', l:'Department', t:'text', v:'alnumtext', show:d=>d._has_prev==='Yes'},
+  {k:'pe_location', l:'Location', t:'text', v:'alnumtext', req:true, show:d=>d._has_prev==='Yes'},
+  {k:'pe_employment_type', l:'Employment Type', col:'Employment Type (full time/part time/Hybrid/remote)', t:'radio', o:['Full Time','Part Time','Hybrid','Remote'], req:true, show:d=>d._has_prev==='Yes'},
+  {k:'pe_start', l:'Start Date', t:'date', req:true, show:d=>d._has_prev==='Yes', check:(v,d)=>{const s=pd(v); if(s>today()) return 'Start date cannot be in the future'; if(d.dob && s<addY(pd(d.dob),14)) return 'Start date looks too early. Please check'; return ''}},
+  {k:'pe_end', l:'End Date', t:'date', req:true, show:d=>d._has_prev==='Yes', check:(v,d)=>{const e=pd(v); if(d.pe_start && e<=pd(d.pe_start)) return 'End date must be after start date'; if(d.doj && e>pd(d.doj)) return 'End date cannot be after your GEMS date of joining'; return ''}},
+  {k:'pe_salary', l:'Salary', col:'Salary ', t:'number', min:0, max:100000000, show:d=>d._has_prev==='Yes', hint:'Last drawn annual CTC in INR, numbers only', pre:'₹'},
+  {k:'pe_current_employer', l:'Current Employer', t:'radio', o:YESNO, req:true, show:d=>d._has_prev==='Yes', hint:'Select Yes if this was your employer immediately before GEMS'},
+  {k:'pe_manager', l:'Reporting Manager', t:'text', v:'name', show:d=>d._has_prev==='Yes'},
+  {k:'pe_hr_phone', l:'HR Contact Number', hr:true},
+  {k:'pe_hr_email', l:'HR Email ID', hr:true},
+  {k:'pe_docs', l:'Upload Relevant Documents', t:'file', accept:'application/pdf,image/jpeg,image/png', maxMB:5, show:d=>d._has_prev==='Yes', full:true, hint:'Relieving letter or last payslip. PDF, JPG or PNG, max 5 MB.'}
+]},
+{ id:'edu', title:'Education details', lead:'Your highest qualification.', fields:[
+  {k:'edu_level', l:'Qualification Level', t:'select', o:['10th','12th','Diploma','Graduate','Post Graduate','Doctorate','Professional Certification'], req:true},
+  {k:'edu_name', l:'Qualification Name', t:'text', v:'alnumtext', req:true, hint:'e.g. B.Com, MBA, B.Ed'},
+  {k:'edu_specialization', l:'Specialization', t:'text', v:'alnumtext'},
+  {k:'edu_board', l:'Board / University', t:'text', v:'alnumtext', req:true},
+  {k:'edu_course_type', l:'Course Type', t:'select', o:['Full Time','Part Time','Distance / Correspondence','Online'], req:true},
+  {k:'edu_score_type', l:'Score Type', t:'select', o:['Percentage','CGPA (out of 10)','CGPA (out of 4)','Grade'], req:true},
+  {k:'edu_score', l:'Percentage / Grade', t:'text', req:true, maxlen:20, check:(v,d)=>{const t=d.edu_score_type; const n=Number(v); const dec=/^\d{1,3}(\.\d{1,2})?$/.test(v);
+      if(t==='Percentage') return (dec&&n>=0&&n<=100)?'':'Enter a percentage between 0 and 100';
+      if(t==='CGPA (out of 10)') return (dec&&n>=0&&n<=10)?'':'Enter a CGPA between 0 and 10';
+      if(t==='CGPA (out of 4)') return (dec&&n>=0&&n<=4)?'':'Enter a CGPA between 0 and 4';
+      if(t==='Grade') return /^[A-Za-z][A-Za-z+\- ]{0,19}$/.test(v)?'':'Enter a grade such as A+, O or First Class';
+      return 'Select a score type first'}},
+  {k:'edu_start', l:'Start Date', t:'date', check:v=> pd(v)>today()? 'Start date cannot be in the future':''},
+  {k:'edu_end', l:'End Date', t:'date', check:(v,d)=> (d.edu_start && pd(v)<=pd(d.edu_start))? 'End date must be after start date':''},
+  {k:'edu_highest', l:'Is Highest Qualification', t:'radio', o:YESNO, def:'Yes', req:true},
+  {k:'edu_effective_from', l:'Effective From', t:'date', hint:'Date the qualification was awarded (result or certificate date)', check:(v,d)=>{const x=pd(v); if(x>today()) return 'Date cannot be in the future'; if(d.edu_start && x<pd(d.edu_start)) return 'Date must be after the course start date'; return ''}},
+  {k:'edu_docs', l:'Upload Relevant Documents', t:'file', accept:'application/pdf,image/jpeg,image/png', maxMB:5, full:true, hint:'Degree certificate or final marksheet, if available. PDF, JPG or PNG, max 5 MB.'}
+]},
+{ id:'bank', title:'Bank details', lead:'Account for salary credit. Please double check before submitting.', fields:[
+  {k:'bank_name', l:'Bank Name', t:'select', o:BANKS.concat(['Other']), req:true},
+  {k:'bank_holder', l:'Account Holder Name', t:'text', v:'name', req:true, hint:'Exactly as printed on the cheque or passbook'},
+  {k:'bank_account', l:'Bank Account Number', t:'text', v:'account', req:true, digits:true, maxlen:18, mask:true},
+  {k:'bank_account_confirm', l:'Confirm Bank Account Number', t:'text', req:true, digits:true, maxlen:18, nopaste:true, check:(v,d)=> v!==d.bank_account? 'Account numbers do not match':'', mask:true},
+  {k:'bank_account_type', l:'Account Type', t:'select', o:['Savings','Salary','Current'], req:true},
+  {k:'bank_branch', l:'Branch Name', t:'text', v:'alnumtext', req:true},
+  {k:'bank_ifsc', l:'IFSC Code', t:'text', v:'ifsc', req:true, upper:true, maxlen:11},
+  {k:'bank_salary', l:'Salary Account', t:'radio', o:YESNO, def:'Yes', req:true},
+  {k:'bank_reimb', l:'Reimbursement Account', hr:true},
+  {k:'bank_cheque', l:'Upload Cancelled Cheque / Passbook Copy', t:'file', accept:'application/pdf,image/jpeg,image/png', maxMB:5, req:true, full:true, hint:'Must clearly show name, account number and IFSC. Max 5 MB.'}
+]},
+{ id:'id', title:'ID details', lead:'One government issued photo ID.', fields:[
+  {k:'id_type', l:'ID Type', t:'select', o:['Passport','Driving Licence','Voter ID','Aadhaar','PAN'], req:true},
+  {k:'id_number', l:'ID Number', col:' ID Number', t:'text', req:true, upper:true, maxlen:20, mask:true, check:(v,d)=>{ if(!d.id_type) return 'Select ID type first'; const s=v.replace(/[\s\-]/g,''); if(d.id_type==='Aadhaar') return aadhaarCheck(s); const r=ID_RX[d.id_type]; return r[0].test(s)?'':r[1] }},
+  {k:'id_name', l:'Name on Document', t:'text', v:'name', req:true},
+  {k:'id_issue', l:'Date of Issue', t:'date', req:true, check:v=> pd(v)>today()? 'Date of issue cannot be in the future':''},
+  {k:'id_valid', l:'Valid Till', t:'date', req:true, show:d=>['Passport','Driving Licence'].includes(d.id_type), check:(v,d)=>{const x=pd(v); if(d.id_issue && x<=pd(d.id_issue)) return 'Valid till must be after date of issue'; if(x<today()) return 'This document has expired. Please use a valid ID'; return ''}},
+  {k:'id_doc', l:'Upload the document', t:'file', accept:'application/pdf,image/jpeg,image/png', maxMB:5, req:true, full:true, hint:'Front and back in one PDF if applicable. Max 5 MB.'}
+]},
+{ id:'nominee', title:'Nomination details', lead:'Nominee for PF, gratuity and insurance benefits.', fields:[
+  {k:'nom_name', l:'Nominee Name', t:'text', v:'name', req:true},
+  {k:'nom_relationship', l:'Relationship', t:'select', o:['Spouse','Son','Daughter','Father','Mother','Brother','Sister','Other'], req:true},
+  {k:'nom_dob', l:'Date of Birth', t:'date', req:true, check:v=> pd(v)>today()? 'Date of birth cannot be in the future':''},
+  {k:'nom_address', l:'Address', t:'textarea', req:true, full:true, max:300},
+  {k:'nom_type', l:'Nominee Type', t:'select', o:['PF','Gratuity','Group Insurance','PF, Gratuity and Group Insurance'], req:true},
+  {k:'nom_percent', l:'Nomination Percentage', t:'number', min:1, max:100, int:true, def:'100', req:true, hint:'Whole number between 1 and 100'}
+]}
+];
+
+const COLUMN_FIELDS = SECTIONS.flatMap(s => s.fields.filter(f => !f.k.startsWith('_')).map(f => ({...f, section:s.title})));
+const REVIEW = SECTIONS.length;
+const $ = s => document.querySelector(s);
+const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- State ---------- */
+const state = { step:0, maxStep:0, data:{}, files:{}, uploads:{}, thumbs:{}, status:'loading', submissionId:'', submittedAt:null };
+const sv = { dirty:false, inflight:false, queued:false, last:null, error:null, timer:null };
+let session = null;   // { token, email, exp }
+
+function defaults(){
+  const d={};
+  SECTIONS.forEach(s=>s.fields.forEach(f=>{ if(f.def!==undefined) d[f.k]=f.def; if(f.t==='multi') d[f.k]=[]; if(f.t==='duration'){d[f.k+'_y']='';d[f.k+'_m']=''} }));
+  return d;
+}
+function resetState(){
+  Object.assign(state,{ step:0, maxStep:0, data:{}, files:{}, uploads:{}, thumbs:{}, status:'loading', submissionId:'', submittedAt:null });
+  clearTimeout(sv.timer); Object.assign(sv,{ dirty:false, inflight:false, queued:false, last:null, error:null });
+}
+function screen(name){
+  ['loading','login','error','form'].forEach(n=>{ $('#s_'+n).hidden = n!==name });
+  $('#hdrUser').hidden = !(name==='form' && session);
+  if(name!=='form') $('#bar').style.width='0';
+}
+
+/* ---------- Server calls (small JSON, with timeouts so nothing ever hangs) ---------- */
+function apiError(code, message){ const e=new Error(message); e.code=code; return e }
+async function call(action, payload={}, timeoutMs=30000){
+  const body = { action, token: session && session.token, ...payload };
+  let reply;
+  if(window.google && google.script && google.script.run){
+    reply = await new Promise((res,rej)=>{
+      const t=setTimeout(()=>rej(apiError('timeout','The server took too long to respond. Please try again.')), timeoutMs);
+      google.script.run.withSuccessHandler(r=>{clearTimeout(t);res(r)}).withFailureHandler(e=>{clearTimeout(t);rej(apiError('network',(e&&e.message)||'Could not reach the server.'))}).api(body);
+    });
+  } else {
+    if(!CONFIG.SCRIPT_URL) throw apiError('setup','This form is not connected yet. Open it from the Apps Script web app link, or set SCRIPT_URL.');
+    const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(), timeoutMs);
+    try{
+      const res=await fetch(CONFIG.SCRIPT_URL,{ method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(body), signal:ctl.signal, redirect:'follow' });
+      const txt=await res.text();
+      try{ reply=JSON.parse(txt) }catch(_){ throw apiError('bad_reply','The server sent an unexpected reply. Please try again in a minute.') }
+    }catch(e){
+      if(e.code) throw e;
+      if(e.name==='AbortError') throw apiError('timeout','The server took too long to respond. Please try again.');
+      throw apiError('network','Could not reach the server. Please check your internet connection.');
+    }finally{ clearTimeout(t) }
+  }
+  if(!reply || !reply.ok) throw apiError(reply&&reply.code||'server', reply&&reply.message||'Something went wrong. Please try again.');
+  return reply;
+}
+
+/* ---------- Sign in with an emailed code ---------- */
+function loadSession(){ try{ const s=JSON.parse(localStorage.getItem(SESSION_KEY)||'null'); if(s&&s.token&&s.exp>Date.now()) return s }catch(_){} return null }
+function saveSession(s){ try{ localStorage.setItem(SESSION_KEY, JSON.stringify(s)) }catch(_){} }
+function clearSession(){ try{ localStorage.removeItem(SESSION_KEY) }catch(_){} session=null }
+const okEmail = e => new RegExp('^[a-z0-9._%+\\-]+@'+CONFIG.EMAIL_DOMAIN.replace(/\./g,'\\.')+'$').test(e);
+function loginMsg(err, info){ $('#loginErr').textContent=err||''; $('#loginInfo').textContent=info||'' }
+function showLogin(stage, msg){
+  screen('login'); $('#stepEmail').hidden = stage!=='email'; $('#stepCode').hidden = stage!=='code';
+  loginMsg(msg||'');
+  setTimeout(()=>{ (stage==='email'?$('#loginEmail'):$('#loginCode')).focus() }, 50);
+}
+async function sendCode(){
+  const email=$('#loginEmail').value.trim().toLowerCase();
+  if(!okEmail(email)) return loginMsg(`Please enter your @${CONFIG.EMAIL_DOMAIN} email address.`);
+  const btn=$('#sendCode'), btn2=$('#resendCode'); btn.disabled=btn2.disabled=true; loginMsg('', 'Sending code…');
+  try{
+    await call('requestCode',{ email }, 30000);
+    $('#codeTo').textContent=email; $('#loginCode').value='';
+    showLogin('code'); loginMsg('', 'Code sent.');
+  }catch(e){ loginMsg(e.message) }
+  finally{ btn.disabled=btn2.disabled=false }
+}
+async function verifyCode(){
+  const email=$('#loginEmail').value.trim().toLowerCase(), code=$('#loginCode').value.replace(/\D/g,'');
+  if(code.length!==6) return loginMsg('Enter the 6-digit code from the email.');
+  const btn=$('#verifyCode'); btn.disabled=true; loginMsg('', 'Checking…');
+  try{
+    const r=await call('verifyCode',{ email, code }, 30000);
+    session={ token:r.token, email:r.email, exp:r.exp }; saveSession(session);
+    loadRecord();
+  }catch(e){ loginMsg(e.message) }
+  finally{ btn.disabled=false }
+}
+$('#sendCode').addEventListener('click', sendCode);
+$('#resendCode').addEventListener('click', sendCode);
+$('#verifyCode').addEventListener('click', verifyCode);
+$('#loginEmail').addEventListener('keydown', e=>{ if(e.key==='Enter') sendCode() });
+$('#loginCode').addEventListener('input', e=>{ e.target.value=e.target.value.replace(/\D/g,''); if(e.target.value.length===6) verifyCode() });
+$('#changeEmail').addEventListener('click', ()=>showLogin('email'));
+$('#signout').addEventListener('click', async ()=>{
+  if(sv.dirty && state.status==='draft') { try{ await persist() }catch(_){} }
+  clearSession(); resetState(); $('#loginEmail').value=''; showLogin('email');
+});
+$('#retryLoad').addEventListener('click', ()=> session ? loadRecord() : showLogin('email'));
+function sessionExpired(){ clearSession(); resetState(); showLogin('email','Your session has expired. Please sign in again.') }
+
+/* ---------- Load / resume ---------- */
+async function loadRecord(){
+  screen('loading');
+  $('#who').textContent = session.email;
+  try{
+    const r = await call('load', {}, 30000);
+    const fresh = !r.data || !Object.keys(r.data).length;
+    state.status = r.status;
+    state.data = { ...defaults(), ...(r.data||{}) };
+    if(fresh && RX.email[0].test(r.email)) state.data.official_email = r.email;
+    state.files = r.files || {};
+    state.maxStep = Math.min(REVIEW, r.maxStep||0);
+    state.step = Math.min(state.maxStep, r.step||0);
+    state.submissionId = r.submissionId || '';
+    state.submittedAt = r.submittedAt ? new Date(r.submittedAt) : null;
+    screen('form'); render();
+    if(state.status==='draft' && (state.step>0 || !fresh)) banner('Welcome back. We have restored your saved answers and taken you to where you left off.', 'info', false);
+  }catch(e){
+    if(e.code==='auth') return sessionExpired();
+    $('#errText').textContent = e.message;
+    screen('error');
+  }
+}
+
+/* ---------- Saving: every Next / Back / section click, plus 10s after typing stops ---------- */
+function storeData(){ derive(); return JSON.parse(JSON.stringify(state.data)) }
+function markDirty(){
+  if(state.status!=='draft') return;
+  sv.dirty=true; setSaveInd();
+  clearTimeout(sv.timer); sv.timer=setTimeout(()=>{ if(sv.dirty) persist() }, 10000);
+}
+async function persist(){
+  if(state.status!=='draft' || !session) return;
+  clearTimeout(sv.timer);
+  if(sv.inflight){ sv.queued=true; return }          // one save at a time; the next one carries the latest data
+  sv.inflight=true; sv.dirty=false; sv.error=null; setSaveInd();
+  let after=null;
+  try{
+    await call('save', { step:state.step, maxStep:state.maxStep, data:storeData() }, 30000);
+    sv.last=new Date();
+  }catch(e){
+    sv.dirty=true; sv.error=e;
+    if(e.code==='auth') after=sessionExpired;
+    else if(e.code==='locked') after=loadRecord;
+    else sv.timer=setTimeout(persist, 8000);           // retry quietly
+  }finally{
+    sv.inflight=false; setSaveInd();
+    if(after) after();
+    else if(sv.queued){ sv.queued=false; persist() }
+  }
+}
+function setSaveInd(){
+  const el=$('#saveInd'); let t='', c='';
+  if(state.status==='draft'){
+    if(sv.inflight) t='Saving…';
+    else if(sv.error){ t='Not saved · retrying'; c='err' }
+    else if(sv.dirty) t='Unsaved changes';
+    else if(sv.last){ t='All changes saved'; c='ok' }
+  }
+  el.textContent=t; el.className='save '+c;
+}
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='hidden' && sv.dirty) persist() });
+window.addEventListener('beforeunload', e=>{ if(state.status==='draft' && (sv.dirty || sv.inflight || Object.keys(state.uploads).length)){ e.preventDefault(); e.returnValue='' } });
+
+/* ---------- Rendering ---------- */
+function renderSteps(){
+  const locked = state.status==='submitted';
+  const labels = SECTIONS.map(s=>s.title).concat(['Review & submit']);
+  $('#steps').innerHTML = labels.map((t,i)=>{
+    const done = locked || (i<state.maxStep && i!==state.step);
+    const active = !locked && i===state.step;
+    return `<button type="button" class="step ${active?'active':''} ${done?'done':''}" data-i="${i}" ${locked||i>state.maxStep?'disabled':''}><span class="n">${done?'✓':i+1}</span><span class="t">${esc(t)}</span></button>`;
+  }).join('');
+  $('#bar').style.width = (locked?100:Math.round(state.step/labels.length*100))+'%';
+}
+$('#steps').addEventListener('click', e=>{ const b=e.target.closest('.step'); if(!b||b.disabled) return; const i=+b.dataset.i; if(i>state.step && !validateStep(state.step)) return; go(i) });
+
+function fieldHTML(f){
+  if(f.hr) return '';
+  if(f.t==='group') return `<div class="gtitle">${esc(f.l)}</div>`;
+  const d=state.data, v=d[f.k]??'';
+  const id='f_'+f.k;
+  const label=`<label class="l" for="${id}">${esc(f.l.trim())}${f.req?'<span class="req">*</span>':(f.t==='computed'?'':'<span class="opt">(optional)</span>')}</label>`;
+  let input='';
+  const common=`id="${id}" name="${f.k}" data-k="${f.k}"`;
+  const ml = f.maxlen?` maxlength="${f.maxlen}"`: (f.max&&f.t!=='number'?` maxlength="${f.max}"`:'');
+  switch(f.t){
+    case 'text': input=`<input type="text" ${common} value="${esc(v)}"${ml}${f.digits?' inputmode="numeric"':''}${f.upper?' style="text-transform:uppercase"':''}${f.nopaste?' data-nopaste="1"':''}>`; break;
+    case 'email': input=`<input type="email" ${common} value="${esc(v)}" maxlength="100">`; break;
+    case 'tel': input=`<input type="tel" ${common} value="${esc(v)}" maxlength="20" inputmode="tel">`; break;
+    case 'mobile': input=`<div class="pre"><span>+91</span><input type="tel" ${common} value="${esc(v)}" maxlength="10" inputmode="numeric" data-digits="1"></div>`; break;
+    case 'number': { const n=`<input type="number" ${common} value="${esc(v)}" min="${f.min}" max="${f.max}" step="${f.int?1:'any'}" inputmode="numeric">`; input= f.pre? `<div class="pre"><span>${f.pre}</span>${n}</div>` : n; break; }
+    case 'date': input=`<input type="date" ${common} value="${esc(v)}" max="2100-12-31" min="1900-01-01">`; break;
+    case 'textarea': input=`<textarea ${common} maxlength="${f.max||500}">${esc(v)}</textarea>`; break;
+    case 'select': input=`<select ${common}><option value="">Select</option>${f.o.map(o=>`<option ${o===v?'selected':''}>${esc(o)}</option>`).join('')}</select>`; break;
+    case 'state': {
+      const india=(d[f.countryKey]||'India')==='India';
+      input= india? `<select ${common}><option value="">Select</option>${STATES.map(o=>`<option ${o===v?'selected':''}>${esc(o)}</option>`).join('')}</select>`
+                  : `<input type="text" ${common} value="${esc(v)}" maxlength="60">`; break; }
+    case 'radio': input=`<div class="radios" role="radiogroup" id="${id}">${f.o.map(o=>`<label><input type="radio" name="${f.k}" data-k="${f.k}" value="${esc(o)}" ${o===v?'checked':''}>${esc(o)}</label>`).join('')}</div>`; break;
+    case 'multi': input=`<div class="chips" id="${id}">${f.o.map(o=>`<label><input type="checkbox" data-k="${f.k}" value="${esc(o)}" ${(v||[]).includes(o)?'checked':''}>${esc(o)}</label>`).join('')}</div>`; break;
+    case 'duration': {
+      const y=d[f.k+'_y'], m=d[f.k+'_m'];
+      input=`<div class="dur" id="${id}"><select data-k="${f.k}_y" aria-label="Years"><option value="">Years</option>${Array.from({length:51},(_,i)=>`<option value="${i}" ${String(i)===String(y)?'selected':''}>${i} yr${i===1?'':'s'}</option>`).join('')}</select><select data-k="${f.k}_m" aria-label="Months"><option value="">Months</option>${Array.from({length:12},(_,i)=>`<option value="${i}" ${String(i)===String(m)?'selected':''}>${i} mo${i===1?'':'s'}</option>`).join('')}</select></div>`; break; }
+    case 'computed': input=`<input type="text" ${common} value="${esc(f.calc(d))}" readonly tabindex="-1">`; break;
+    case 'file': {
+      const fl=state.files[f.k], up=state.uploads[f.k], th=state.thumbs[f.k];
+      if(up){
+        input=`<div class="drop" id="${id}_drop"><div class="upl"><div class="fn">Uploading ${esc(up.name)}… you can keep filling the form</div><div class="pbar busy"><i></i></div></div></div>`;
+      } else {
+        const thumb = fl && th ? `<img src="${esc(th)}" alt="">` : '';
+        input=`<div class="drop" id="${id}_drop">${thumb}<label class="btn" for="${id}">${fl?'Replace file':'Choose file'}</label><input type="file" ${common} accept="${f.accept}"><div class="fn">${fl?`<span class="okmark">✓ Uploaded</span> ${esc(fl.name)} · ${(fl.size/1048576).toFixed(2)} MB`:'No file selected'}</div>${fl?`<button type="button" class="btn" data-clear="${f.k}" style="margin-left:auto">Remove</button>`:''}</div>`;
+      }
+      break; }
+  }
+  const hidden = f.show && !f.show(d) ? 'hidden' : '';
+  return `<div class="f ${f.full?'full':''}" data-f="${f.k}" ${hidden}>${label}${input}${f.hint?`<div class="hint">${esc(f.hint)}</div>`:''}<div class="err" id="${id}_err"></div></div>`;
+}
+function updateFileField(f){
+  const el=document.querySelector(`[data-f="${f.k}"]`); if(!el) return;
+  const err=el.querySelector('.err'), had=el.classList.contains('invalid'), msg=err?err.textContent:'';
+  el.outerHTML=fieldHTML(f);
+  if(had) showErr(f,msg);
+}
+
+function render(){
+  derive();
+  renderSteps(); setSaveInd();
+  const form=$('#form');
+  $('#banner').className='banner';
+  if(state.status==='submitted'){ form.innerHTML=lockedHTML(); return }
+  if(state.step===REVIEW){ form.innerHTML=reviewHTML(false); return }
+  const s=SECTIONS[state.step];
+  form.innerHTML = `<div class="stepno">Step ${state.step+1} of ${REVIEW+1}</div><h2>${esc(s.title)}</h2><p class="lead">${esc(s.lead)}</p>
+    <div class="grid">${s.fields.map(fieldHTML).join('')}</div>
+    <div class="actions"><button type="button" class="btn" id="back" ${state.step===0?'style="visibility:hidden"':''}>Back</button><button type="button" class="btn primary" id="next">Save & continue</button></div>`;
+  $('#back').onclick=()=>go(state.step-1);
+  $('#next').onclick=()=>{ if(validateStep(state.step)) go(state.step+1) };
+}
+/* Every step change is a save point */
+function go(i){
+  if(state.status!=='draft') return;
+  state.step=Math.max(0,Math.min(REVIEW,i)); state.maxStep=Math.max(state.maxStep,state.step);
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+  persist();
+}
+
+/* ---------- Input handling ---------- */
+function derive(){
+  const d=state.data;
+  const y=d.past_experience_y, m=d.past_experience_m;
+  d._past_months = (y!==''&&m!==''&&y!==undefined&&m!==undefined) ? (+y)*12+(+m) : 0;
+  d.past_experience = (y!==''&&m!==''&&y!==undefined&&m!==undefined) ? fmtDur(d._past_months) : '';
+  d.age = SECTIONS[0].fields.find(f=>f.k==='age').calc(d);
+  const wf=SECTIONS[1].fields;
+  d.current_experience = wf.find(f=>f.k==='current_experience').calc(d);
+  d.total_experience = wf.find(f=>f.k==='total_experience').calc(d);
+}
+function refreshDynamic(){
+  derive();
+  if(state.step>=REVIEW) return;
+  SECTIONS[state.step].fields.forEach(f=>{
+    const el=document.querySelector(`[data-f="${f.k}"]`); if(!el) return;
+    if(f.show) el.hidden=!f.show(state.data);
+    if(f.t==='computed') el.querySelector('input').value=state.data[f.k]||'';
+  });
+}
+const form=$('#form');
+form.addEventListener('input', e=>{
+  const t=e.target, k=t.dataset.k; if(!k||t.type==='file'||state.status!=='draft') return;
+  if(t.type==='checkbox'){ const arr=new Set(state.data[k]||[]); t.checked?arr.add(t.value):arr.delete(t.value); state.data[k]=[...arr]; }
+  else {
+    const f=findField(k);
+    if(f&&f.digits || t.dataset.digits){ const c=t.value.replace(/\D/g,''); if(c!==t.value) t.value=c }
+    if(f&&f.upper){ const c=t.value.toUpperCase(); if(c!==t.value){const p=t.selectionStart;t.value=c;try{t.setSelectionRange(p,p)}catch(_){}} }
+    state.data[k]=t.value;
+  }
+  if(k==='dep_relationship'){ const m={Son:'Male',Father:'Male','Father-in-law':'Male',Daughter:'Female',Mother:'Female','Mother-in-law':'Female'}[t.value]; if(m){state.data.dep_gender=m; const r=form.querySelector(`input[name="dep_gender"][value="${m}"]`); if(r) r.checked=true} }
+  markDirty();
+  if(k==='country'){ state.data.state=''; state.data.pincode=''; render(); return; }
+  if((k==='past_experience_y'||k==='past_experience_m') && state.data._has_prev===undefined && state.data.past_experience_y!==''){ state.data._has_prev = (+state.data.past_experience_y||+state.data.past_experience_m)? 'Yes':'No' }
+  refreshDynamic();
+  const fe=t.closest('.f'); if(fe&&fe.classList.contains('invalid')) validateField(findField(fe.dataset.f));
+});
+form.addEventListener('focusout', e=>{ const fe=e.target.closest&&e.target.closest('.f'); if(fe && e.target.type!=='file'){ const f=findField(fe.dataset.f); if(f && (state.data[f.k]??'')!=='' ) validateField(f) } });
+form.addEventListener('paste', e=>{ if(e.target.dataset && e.target.dataset.nopaste){ e.preventDefault(); showErr(findField(e.target.dataset.k),'Please type the account number again instead of pasting') } });
+
+
+/* ---------- Files: each upload starts the moment it is chosen, in the background ---------- */
+form.addEventListener('change', e=>{
+  const t=e.target; if(t.type!=='file') return;
+  const f=findField(t.dataset.k); const file=t.files[0]; t.value=''; if(!file||!f) return;
+  const okTypes=f.accept.split(',');
+  if(!okTypes.includes(file.type)) return showErr(f,'File type not allowed. Allowed: '+okTypes.map(x=>x.split('/')[1].toUpperCase().replace('JPEG','JPG')).join(', '));
+  if(file.size>f.maxMB*1048576) return showErr(f,`File is larger than ${f.maxMB} MB. Please choose a smaller file.`);
+  if(file.size===0) return showErr(f,'This file is empty');
+  startUpload(f,file);
+});
+async function startUpload(f,file){
+  state.uploads[f.k]={ name:file.name };
+  showErr(f,''); updateFileField(f);
+  let err='';
+  try{
+    const b64=await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(String(r.result).split(',')[1]); r.onerror=rej; r.readAsDataURL(file) });
+    const r=await call('upload',{ field:f.k, name:file.name, type:file.type, base64:b64 }, 180000);
+    state.files[f.k]=r.file;
+    if(file.type.startsWith('image/')) state.thumbs[f.k]=URL.createObjectURL(file); else delete state.thumbs[f.k];
+  }catch(e){
+    if(e.code==='auth'){ delete state.uploads[f.k]; return sessionExpired() }
+    err = e.code==='file' ? e.message : 'Upload failed: '+e.message+' Please choose the file again.';
+  }finally{
+    delete state.uploads[f.k]; updateFileField(f);
+    if(err) showErr(f,err); else validateField(f);
+  }
+}
+form.addEventListener('click', async e=>{
+  const ds=e.target.dataset||{};
+  if(ds.clear){
+    const k=ds.clear, f=findField(k), btn=e.target; btn.disabled=true;
+    try{ await call('removeFile',{ field:k }, 30000); delete state.files[k]; delete state.thumbs[k]; updateFileField(f) }
+    catch(err){ btn.disabled=false; if(err.code==='auth') return sessionExpired(); showErr(f,'Could not remove the file: '+err.message) }
+    return;
+  }
+  if(ds.edit!==undefined){ go(+ds.edit); return }
+  if(e.target.id==='back' && state.step===REVIEW) go(REVIEW-1);
+  if(e.target.id==='submit') submit();
+});
+
+function findField(k){ for(const s of SECTIONS) for(const f of s.fields) if(f.k===k || (f.t==='duration' && (k===f.k+'_y'||k===f.k+'_m'))) return f; return null }
+
+/* ---------- Validation ---------- */
+function showErr(f,msg){ if(!f) return; const el=document.querySelector(`[data-f="${f.k}"]`); if(!el) return; el.classList.toggle('invalid',!!msg); const er=el.querySelector('.err'); if(er) er.textContent=msg||'' }
+function fieldError(f){
+  const d=state.data;
+  if(f.hr||f.t==='group'||f.t==='computed') return '';
+  if(f.show && !f.show(d)) return '';
+  let v=d[f.k];
+  if(f.t==='file'){ if(state.uploads[f.k]) return 'Please wait for the upload to finish'; return (f.req && !state.files[f.k])? 'Please upload this document':'' }
+  if(f.t==='multi'){ return (f.req && !(v&&v.length))? 'Select at least one':'' }
+  if(f.t==='duration'){ const y=d[f.k+'_y'],m=d[f.k+'_m']; if(f.req&&(y===''||m===''||y===undefined||m===undefined)) return 'Select both years and months'; return '' }
+  v=(v??'').toString().trim();
+  if(!v) return f.req? (f.t==='select'||f.t==='radio'||f.t==='state'?'Please select an option':'This field is required') : '';
+  if(f.max && f.t!=='number' && v.length>f.max) return `Maximum ${f.max} characters`;
+  if(f.t==='number'){ const n=Number(v); if(isNaN(n)) return 'Enter a number'; if(f.int&&!Number.isInteger(n)) return 'Enter a whole number'; if(n<f.min||n>f.max) return `Enter a value between ${f.min} and ${f.max}` }
+  if(f.t==='date'){ if(!/^\d{4}-\d{2}-\d{2}$/.test(v)||isNaN(pd(v))) return 'Enter a valid date'; const y=pd(v).getFullYear(); if(y<1900||y>2100) return 'Enter a valid date' }
+  if(f.v){ const [rx,msg]=RX[f.v]; if(!rx.test(v)) return msg }
+  if(f.check){ const m=f.check(v,d); if(m) return m }
+  return '';
+}
+function validateField(f){ if(!f) return true; const m=fieldError(f); showErr(f,m); return !m }
+function validateStep(i){
+  derive();
+  const bad=SECTIONS[i].fields.filter(f=>!validateField(f));
+  if(bad.length){
+    banner(`Please fix ${bad.length} field${bad.length>1?'s':''} highlighted below before continuing.`, 'err', false);
+    const el=document.querySelector(`[data-f="${bad[0].k}"]`); if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); const inp=el.querySelector('input:not([type=file]),select,textarea'); if(inp) setTimeout(()=>inp.focus({preventScroll:true}),300) }
+    return false;
+  }
+  $('#banner').className='banner'; return true;
+}
+
+/* ---------- Review / locked view ---------- */
+function displayValue(f){
+  const d=state.data; let v=d[f.k];
+  if(f.t==='file') return state.files[f.k]? esc(state.files[f.k].name) : '';
+  if(Array.isArray(v)) v=v.join(', ');
+  if(f.t==='date') v=fmtDate(v);
+  if(f.t==='mobile'&&v) v='+91 '+v;
+  if(f.mask && v && v.length>4) v='•'.repeat(v.length-4)+v.slice(-4);
+  return esc(v);
+}
+function summaryHTML(readonly){
+  return `<div class="rv">${SECTIONS.map((s,i)=>{
+    const rows=s.fields.filter(f=>!f.hr&&f.t!=='group'&&!(f.show&&!f.show(state.data))).map(f=>{const dv=displayValue(f); return `<dt>${esc(f.l.trim())}</dt><dd>${dv||'<span style="color:var(--muted)">Not provided</span>'}</dd>`}).join('');
+    return `<h3>${esc(s.title)}${readonly?'':`<button type="button" data-edit="${i}">Edit</button>`}</h3><dl>${rows}</dl>`}).join('')}</div>`;
+}
+function reviewHTML(){
+  derive();
+  return `<div class="stepno">Step ${REVIEW+1} of ${REVIEW+1}</div><h2>Review & submit</h2><p class="lead">Check your details. Click Edit to change any section. Once submitted, the form is locked.</p>
+  ${summaryHTML(false)}
+  <label class="decl"><input type="checkbox" id="decl"><span>I confirm that the information provided is true and complete to the best of my knowledge. I understand that incorrect information may lead to action as per company policy, and I consent to GEMS Education India processing this data for employment and statutory purposes.</span></label>
+  <div class="err" id="declErr" style="margin-top:6px">Please accept the declaration to submit.</div>
+  <div class="actions"><button type="button" class="btn" id="back">Back</button><button type="button" class="btn primary" id="submit">Submit</button></div>`;
+}
+function lockedHTML(){
+  const when = state.submittedAt ? state.submittedAt.toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+  return `<div class="done-box"><div class="tick">✓</div><h2>Your form has been submitted</h2>
+    <p class="lead" style="margin:6px 0 0">${when?`Submitted on ${esc(when)}. `:''}Your form is now locked. If anything needs to change, please contact HR and they can reopen it for you.</p>
+    ${state.submissionId?`<div class="ref">Reference: ${esc(state.submissionId)}</div>`:''}</div>
+    <h2 style="font-size:17px;margin-top:10px">Your submitted details</h2>${summaryHTML(true)}`;
+}
+
+
+/* ---------- Submit (data and files are already saved, so this is quick) ---------- */
+function buildAnswers(){
+  derive();
+  const d=state.data, out={};
+  COLUMN_FIELDS.forEach(f=>{
+    if(f.hr) return;
+    if(f.show && !f.show(d)) return;
+    if(f.t==='file'){ if(state.files[f.k]) out[f.k]='FILE'; return }
+    let v=d[f.k]; if(Array.isArray(v)) v=v.join(', ');
+    v=(v??'').toString().trim();
+    if(f.k==='id_number') v=v.replace(/[\s\-]/g,'');
+    if(f.k==='pf') v=v.replace(/\//g,'');
+    if(f.t==='mobile' && v) v='+91'+v;
+    if(v!=='') out[f.k]=v;
+  });
+  return out;
+}
+
+async function submit(){
+  if(!$('#decl').checked){ $('#declErr').style.display='block'; return }
+  $('#declErr').style.display='none';
+  if(Object.keys(state.uploads).length) return banner('Please wait for your uploads to finish, then submit.');
+  for(let i=0;i<SECTIONS.length;i++){ if(!SECTIONS[i].fields.every(f=>!fieldError(f))){ go(i); setTimeout(()=>validateStep(i),50); return } }
+  const btn=$('#submit'); btn.disabled=true; overlay('Submitting…');
+  clearTimeout(sv.timer);
+  const slow=setTimeout(()=>overlay('Still submitting. Please keep this page open…'), 8000);
+  if(!state.pendingId) state.pendingId='GEMS-'+new Date().toISOString().slice(0,10).replace(/-/g,'')+'-'+Array.from(crypto.getRandomValues(new Uint8Array(6)),b=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b%32]).join('');
+  try{
+    const r=await call('submit', { submissionId:state.pendingId, formVersion:FORM_VERSION, answers:buildAnswers(), data:storeData() }, 60000);
+    state.status='submitted'; state.submissionId=r.submissionId; state.submittedAt=new Date(r.submittedAt);
+    sv.dirty=false; render(); window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){
+    btn.disabled=false;
+    if(e.code==='auth') return sessionExpired();
+    if(e.code==='locked') return loadRecord();
+    banner(`Could not submit: ${e.message} Your answers are saved. Please try Submit again.`);
+  }finally{ clearTimeout(slow); overlay(false) }
+}
+function overlay(msg){ $('#overlay').classList.toggle('show', !!msg); if(msg) $('#ovText').textContent=msg }
+function banner(msg, kind='err', scroll=true){ const b=$('#banner'); b.textContent=msg; b.className='banner show'+(kind==='info'?' info':''); if(scroll) window.scrollTo({top:0,behavior:'smooth'}) }
+
+/* ---------- Start ---------- */
+session = loadSession();
+if(session) loadRecord(); else showLogin('email');
+</script>
+</body>
+</html>
