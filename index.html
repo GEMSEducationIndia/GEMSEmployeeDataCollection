@@ -152,15 +152,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 30px}
   <section class="center" id="s_login" hidden><div class="card">
     <h2>Sign in to continue</h2>
     <div id="stepEmail">
-      <p class="lead">Enter your GEMS email address. We will email you a 6-digit code. Your progress is saved as you go, so you can close the page and continue later.</p>
+      <p class="lead">Enter your GEMS email address to open your form. Your progress is saved as you go, so you can close the page and continue later.</p>
       <input type="email" id="loginEmail" class="login-input" placeholder="yourname@gemsedu.in" autocomplete="email" maxlength="100">
-      <button type="button" class="btn primary ms" id="sendCode">Email me a code</button>
-    </div>
-    <div id="stepCode" hidden>
-      <p class="lead">We sent a code to <b id="codeTo"></b>. It expires in 10 minutes. If you can't find it, check your Junk or Spam folder.</p>
-      <input type="text" id="loginCode" class="login-input codebox" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••">
-      <button type="button" class="btn primary ms" id="verifyCode">Verify and continue</button>
-      <p class="hint" style="margin-top:14px"><button type="button" class="linkbtn" id="resendCode">Send a new code</button> · <button type="button" class="linkbtn" id="changeEmail">Use a different email</button></p>
+      <button type="button" class="btn primary ms" id="sendCode">Continue</button>
     </div>
     <div class="loginerr" id="loginErr" role="alert"></div>
     <div class="loginok hint" id="loginInfo"></div>
@@ -465,45 +459,29 @@ async function call(action, payload={}, timeoutMs=30000){
   return reply;
 }
 
-/* ---------- Sign in with an emailed code ---------- */
+/* ---------- Sign in with a @gemsedu.in email ---------- */
 function loadSession(){ try{ const s=JSON.parse(localStorage.getItem(SESSION_KEY)||'null'); if(s&&s.token&&s.exp>Date.now()) return s }catch(_){} return null }
 function saveSession(s){ try{ localStorage.setItem(SESSION_KEY, JSON.stringify(s)) }catch(_){} }
 function clearSession(){ try{ localStorage.removeItem(SESSION_KEY) }catch(_){} session=null }
 const okEmail = e => new RegExp('^[a-z0-9._%+\\-]+@'+CONFIG.EMAIL_DOMAIN.replace(/\./g,'\\.')+'$').test(e);
 function loginMsg(err, info){ $('#loginErr').textContent=err||''; $('#loginInfo').textContent=info||'' }
 function showLogin(stage, msg){
-  screen('login'); $('#stepEmail').hidden = stage!=='email'; $('#stepCode').hidden = stage!=='code';
-  loginMsg(msg||'');
-  setTimeout(()=>{ (stage==='email'?$('#loginEmail'):$('#loginCode')).focus() }, 50);
+  screen('login'); loginMsg(msg||'');
+  setTimeout(()=>{ $('#loginEmail').focus() }, 50);
 }
-async function sendCode(){
+async function signIn(){
   const email=$('#loginEmail').value.trim().toLowerCase();
   if(!okEmail(email)) return loginMsg(`Please enter your @${CONFIG.EMAIL_DOMAIN} email address.`);
-  const btn=$('#sendCode'), btn2=$('#resendCode'); btn.disabled=btn2.disabled=true; loginMsg('', 'Sending code…');
+  const btn=$('#sendCode'); btn.disabled=true; loginMsg('', 'Opening your form…');
   try{
-    await call('requestCode',{ email }, 30000);
-    $('#codeTo').textContent=email; $('#loginCode').value='';
-    showLogin('code'); loginMsg('', 'Code sent.');
-  }catch(e){ loginMsg(e.message) }
-  finally{ btn.disabled=btn2.disabled=false }
-}
-async function verifyCode(){
-  const email=$('#loginEmail').value.trim().toLowerCase(), code=$('#loginCode').value.replace(/\D/g,'');
-  if(code.length!==6) return loginMsg('Enter the 6-digit code from the email.');
-  const btn=$('#verifyCode'); btn.disabled=true; loginMsg('', 'Checking…');
-  try{
-    const r=await call('verifyCode',{ email, code }, 30000);
+    const r=await call('login',{ email }, 30000);
     session={ token:r.token, email:r.email, exp:r.exp }; saveSession(session);
     loadRecord();
   }catch(e){ loginMsg(e.message) }
   finally{ btn.disabled=false }
 }
-$('#sendCode').addEventListener('click', sendCode);
-$('#resendCode').addEventListener('click', sendCode);
-$('#verifyCode').addEventListener('click', verifyCode);
-$('#loginEmail').addEventListener('keydown', e=>{ if(e.key==='Enter') sendCode() });
-$('#loginCode').addEventListener('input', e=>{ e.target.value=e.target.value.replace(/\D/g,''); if(e.target.value.length===6) verifyCode() });
-$('#changeEmail').addEventListener('click', ()=>showLogin('email'));
+$('#sendCode').addEventListener('click', signIn);
+$('#loginEmail').addEventListener('keydown', e=>{ if(e.key==='Enter') signIn() });
 $('#signout').addEventListener('click', async ()=>{
   if(sv.dirty && state.status==='draft') { try{ await persist() }catch(_){} }
   clearSession(); resetState(); $('#loginEmail').value=''; showLogin('email');
